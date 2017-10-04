@@ -45,52 +45,49 @@ foreach ($rows as $feed) {
 
 		$itemrows = Query($db, $itemquery);
 		if (count($itemrows) == 0) {
-			echo "<div><b>";
-			echo $item->get_title();
-			echo "</b></div>";
+			
 
-			echo "<div>";
-			echo $item->get_local_date();
-			echo "</div>";
+			$enclosure = $item->get_enclosure();
 
-			echo "<div>";
-			echo $item->get_description();
-			echo "</div>";
 
 			// Insert the item in the items table
 			if ($item->get_title() == NULL) {
 
-			$insertquery =
-				"INSERT INTO items (id,feedTitle,feedLink,itemPubDate,itemLink,itemDesc) VALUES (" .
-				$feed['id'] . ",'" . 
-				$item->get_feed()->get_title() .
-				"','" .
-				$item->get_feed()->get_permalink() .
-				"','" .
-				$item->get_local_date() .
-				"','" .
-				$item->get_permalink() .
-				"','" .
-				RemoveLinks($item->get_description()) .
-				"')";
+				$insertquery =
+					"INSERT INTO items (id,feedTitle,feedLink,itemPubDate,itemLink,itemImg,itemDesc) VALUES (" .
+					$feed['id'] . ",'" . 
+					$item->get_feed()->get_title() .
+					"','" .
+					$item->get_feed()->get_permalink() .
+					"','" .
+					$item->get_local_date() .
+					"','" .
+					$item->get_permalink() .
+					"','" .
+					$enclosure->get_link() .
+					"','" .
+					RemoveLinks($item->get_description()) .
+					"')";
 
 			} else {
 
-			$insertquery =
-				"INSERT INTO items (id,feedTitle,feedLink,itemTitle,itemPubDate,itemLink,itemDesc) VALUES (" .
-				$feed['id'] . ",'" . 
-				$item->get_feed()->get_title() .
-				"','" .
-				$item->get_feed()->get_permalink() .
-				"','" .
-				$item->get_title() .
-				"','" .
-				$item->get_local_date() .
-				"','" .
-				$item->get_permalink() .
-				"','" .
-				RemoveLinks($item->get_description()) .
-				"')";
+				$insertquery =
+					"INSERT INTO items (id,feedTitle,feedLink,itemTitle,itemPubDate,itemLink,itemImg,itemDesc) VALUES (" .
+					$feed['id'] . ",'" . 
+					$item->get_feed()->get_title() .
+					"','" .
+					$item->get_feed()->get_permalink() .
+					"','" .
+					$item->get_title() .
+					"','" .
+					$item->get_local_date() .
+					"','" .
+					$item->get_permalink() .
+					"','".
+					$enclosure->get_link() .
+					"','" .
+					RemoveLinks($item->get_description()) .
+					"')";
 
 			}
 

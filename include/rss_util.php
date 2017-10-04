@@ -108,6 +108,7 @@ function LoadCachedItems($items)
 			"feedLink" => $feedLink,
 			"itemTitle" => $itemTitle,
 			"itemPubDate" => $itemPubDate,
+			"itemImg" => $row['itemImg'],
 			"itemLink" => $itemLink,
 			"itemDesc" => $itemDesc);
 
